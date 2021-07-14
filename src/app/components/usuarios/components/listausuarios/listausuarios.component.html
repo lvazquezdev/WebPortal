@@ -1,0 +1,46 @@
+<a mat-raised-button color="primary" routerLink="/usuarios/nuevo">Nuevo</a>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 products-table" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.Nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ApellidoPaterno">
+        <th mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.ApellidoPaterno}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ApellidoMaterno">
+        <th mat-header-cell *matHeaderCellDef> Apellido Materno </th>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.ApellidoMaterno}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Correo">
+        <th mat-header-cell *matHeaderCellDef> Correo </th>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.Correo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Rol">
+        <th mat-header-cell *matHeaderCellDef> Rol </th>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.Rol}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let usuario">
+            <a [routerLink]="['editar', usuario.id]" mat-icon-button color="Primary" aria-label="Editar">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button color="warn" aria-label="Eliminar" (click)="deleteUser(usuario.Id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+<!-- <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
