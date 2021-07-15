@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="update($event)">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Editar Usuario</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <input matInput placeholder="Nombre" formControlName="Nombre">
+                        <mat-error *ngIf="Nombre.hasError && Nombre.dirty">
+                            <p *ngIf="Nombre.hasError('required')">* Nombre es requerido</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <input matInput placeholder="Apellido Paterno" formControlName="ApellidoPaterno">
+                        <mat-error *ngIf="APaterno.hasError && APaterno.dirty">
+                            <p *ngIf="APaterno.hasError('required')">* Apellido Paterno es requerido</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <input matInput placeholder="Apellido Materno" formControlName="ApellidoMaterno">
+                        <mat-error *ngIf="AMaterno.hasError && AMaterno.dirty">
+                            <p *ngIf="AMaterno.hasError('required')">* Apellido Materno es requerido</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <input matInput placeholder="Correo" formControlName="Correo">
+                        <mat-error *ngIf="Correo.hasError && Correo.dirty">
+                            <p *ngIf="Correo.hasError('required')">* Correo es requerido</p>
+                            <p *ngIf="Correo.hasError('email')">* Formato de correo incorrecto</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <mat-label>Rol</mat-label>
+                        <mat-select formControlName="RolId">
+                            <mat-option>Clear</mat-option>
+                            <mat-option *ngFor="let rol of roles" [value]="rol.RolId">
+                                {{ rol.Name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="Rol.hasError && Rol.dirty">
+                            <p *ngIf="Rol.hasError('required')">* Rol es requerido</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
+            <a routerLink="/usuarios/lista-usuarios" mat-raised-button color="primary" [disabled]="form.invalid">Cancelar</a>
+        </mat-card-actions>
+    </mat-card>
+</form>

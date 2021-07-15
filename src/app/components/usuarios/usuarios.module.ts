@@ -8,11 +8,13 @@ import { MaterialModule } from './../../material/material.module';
 
 import { ListausuariosComponent } from './components/listausuarios/listausuarios.component';
 import { NuevousuarioComponent } from './components/nuevousuario/nuevousuario.component';
+import { EditarusuarioComponent } from './components/editarusuario/editarusuario.component';
 
 @NgModule({
   declarations: [
     ListausuariosComponent,
-    NuevousuarioComponent
+    NuevousuarioComponent,
+    EditarusuarioComponent
   ],
   imports: [
     CommonModule,

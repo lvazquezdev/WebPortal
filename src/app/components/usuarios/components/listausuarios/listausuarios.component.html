@@ -29,7 +29,7 @@
     <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
         <td mat-cell *matCellDef="let usuario">
-            <a [routerLink]="['editar', usuario.id]" mat-icon-button color="Primary" aria-label="Editar">
+            <a [routerLink]="['/usuarios/editar', usuario.Id]" mat-icon-button color="Primary" aria-label="Editar">
                 <mat-icon>edit</mat-icon>
             </a>
             <button mat-icon-button color="warn" aria-label="Eliminar" (click)="deleteUser(usuario.Id)">

@@ -19,7 +19,15 @@ export class UsuarioService {
     return this.http.post(`${environment.ApiService}/Usuarios/AltaUsuario`, usuario);
   }
 
+  editarUsuario(id: string, usuario: Usuario) {
+    return this.http.put(`${environment.ApiService}/Usuarios/EditarUsuario?id=${id}`, usuario);
+  }
+
   eliminaUsuario(id: string) {
     return this.http.delete(`${environment.ApiService}/Usuarios/EliminarUsuario?id=${id}`);
+  }
+
+  getUsuario(id: string) {
+    return this.http.get<Usuario>(`${environment.ApiService}/Usuarios/GetUsuario?id=${id}`);
   }
 }
