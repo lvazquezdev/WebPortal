@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup | any;
   // loginInvalid: boolean | any;
+  Message: string | any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,17 +22,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('Entra ngOnInit Login')
     this.form = this.formBuilder.group(
       {
         Usuario: ['', [Validators.required]],
         Password: ['', [Validators.required]]
       }
     );
-
-    // if (this.authService.isAuth()) {
-    //   this.router.navigate(['home']);
-    // }
   }
 
   get f() { return this.form.controls; }
@@ -45,7 +41,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['home']);
           }
           , error => {
-            alert(error.error.Message);
+            this.Message = error.error.Message;
           });
     } else {
       console.log(this.form.valid)

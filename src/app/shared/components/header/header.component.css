@@ -1,18 +1,24 @@
-nav>a {
-    padding: 5px;
-    text-decoration: none;
+/* 
+
+
+
+ */
+
+.menu-spacer {
+    flex: 1 1 auto;
 }
 
-nav>p {
-    padding: 5px;
-    text-decoration: none;
-}
-
-nav>a.active {
+.mat-elevation-z6>a.active {
     background-color: blue;
     color: #ffff;
+    border-radius: 15%;
 }
 
-.header-row {
+mat-elevation-z6>a {
+    padding: 5px;
+    text-decoration: none;
+}
+
+.row {
     width: 100%;
 }

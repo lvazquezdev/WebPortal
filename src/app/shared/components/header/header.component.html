@@ -1,21 +1,20 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <div class="row between-xs middle-xs header-row">
-            <nav>
-                <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
-                <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
-                <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
-                <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
-                <!--*ngIf="usuario.role === 'Administrador'"-->
-                <!-- <a>{{usuario.nombre }} {{usuario.apellido}}</a> -->
-                <!-- <a mat-button routerLink="/login" routerLinkActive="active">LogIn</a> -->
-                <a mat-button (click)="logOut()">
-                    <mat-icon>
-                        logout
-                    </mat-icon>
-                    Salir
-                </a>
-            </nav>
-        </div>
-    </mat-toolbar-row>
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button> -->
+    <span>
+        <mat-icon>eco</mat-icon> My App
+    </span>
+    <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
+    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
+    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
+    <div class="menu-spacer"></div>
+    {{usuario.nombre}} {{usuario.nombre}}
+    <a mat-button (click)="logOut()">
+        <mat-icon>
+            logout
+        </mat-icon>
+        Salir
+    </a>
 </mat-toolbar>
