@@ -1,22 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import decode from 'jwt-decode';
 import { UsuarioService } from '../../../../core/services/usuario.service';
-import { RolService } from './../../../../core/services/rol.service';
-import { Rol } from '../../../../models/rol';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 
 
-
 @Component({
-  selector: 'app-nuevousuario',
-  templateUrl: './nuevousuario.component.html',
-  styleUrls: ['./nuevousuario.component.css']
+  selector: 'app-perfil-usuario',
+  templateUrl: './perfil-usuario.component.html',
+  styleUrls: ['./perfil-usuario.component.css']
 })
-export class NuevousuarioComponent implements OnInit {
+export class PerfilUsuarioComponent implements OnInit {
 
+  //usuario: any;
   form: FormGroup | any;
-  roles: Rol[] | any;
+  id: string | any;
   file: File | any;
   defaultImgProfile = 'assets/img/images.png'
   imgURL: any;
@@ -26,15 +27,20 @@ export class NuevousuarioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private usuarioService: UsuarioService,
-    private rolService: RolService,
+    private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private toastr: ToastrService
   ) {
     this.buildForm();
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const { userId }: any = decode(token);
+      this.id = userId;
+    }
   }
 
   ngOnInit(): void {
-    this.getRoles();
-    this.imgURL = this.defaultImgProfile;
+    this.getUsuario();
   }
 
   private buildForm() {
@@ -43,11 +49,8 @@ export class NuevousuarioComponent implements OnInit {
         PrimerNombre: [null, [Validators.required]],
         SegundoNombre: [null, []],
         ApellidoPaterno: [null, Validators.required],
-        ApellidoMaterno: [null,],
-        Correo: [null, [Validators.required, Validators.email]],
-        RolId: [null, [Validators.required]],
-        Usuario: [null, Validators.required],
-        Password: [null, [Validators.required, Validators.minLength(6)]],
+        ApellidoMaterno: [null, []],
+        Correo: [null, [Validators.required, Validators.email]]
       }
     );
   }
@@ -55,7 +58,6 @@ export class NuevousuarioComponent implements OnInit {
   get PrimerNombre() {
     return this.form.get('PrimerNombre');
   }
-
   get SegundoNombre() {
     return this.form.get('SegundoNombre');
   }
@@ -78,30 +80,47 @@ export class NuevousuarioComponent implements OnInit {
     return this.form.get('Password');
   }
 
-  save(event: Event) {
+  getUsuario() {
+    this.usuarioService.getUsuario(this.id)
+      .subscribe((user: any) => {
+        this.form.patchValue(user);
+
+        if (user.imagen.Foto != null) {
+          let objectURL = `data:${user.imagen.DataType};base64,${user.imagen.Foto}`;
+          this.imgURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        } else {
+          this.imgURL = this.defaultImgProfile;
+        }
+      });
+  }
+
+  update(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
-      const nuevoUsuario = this.form.value
+
+      const usuario = this.form.value
       const formData = new FormData();
 
-
-      this.usuarioService.altaUsuario(nuevoUsuario)
+      this.usuarioService.editarUsuario(this.id, usuario)
         .subscribe(user => {
+
           if (this.file != null) {
             formData.append('ImageUpload', this.file);
-            formData.append('LoginUserId', user.toString());
+            formData.append('LoginUserId', this.id);
 
             this.usuarioService.UpsertFoto(formData)
               .subscribe(res => {
+                console.log(res);
               },
                 error => {
                   console.log(error);
                 });
-          } else {
 
           }
-          this.toastr.success('Usuario creado con exito!', 'Exito');
-          this.router.navigate(['usuarios/lista-usuarios']);
+
+          //alert("Perfil actualizado con exito!");
+          this.toastr.success('Perfil actualizado con exito!', 'Exito!');
+          //this.router.navigate(['/home']);
         });
     }
   }
@@ -124,15 +143,6 @@ export class NuevousuarioComponent implements OnInit {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     }
-
-
-  }
-
-  getRoles() {
-    this.rolService.getRoles()
-      .subscribe(roles => {
-        this.roles = roles;
-      });
   }
 
 }

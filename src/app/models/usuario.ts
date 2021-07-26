@@ -1,6 +1,7 @@
 export interface Usuario {
     Id: string;
-    Nombre: string;
+    PrimerNombre: string;
+    SegundoNombre: string;
     ApellidoPaterno: string;
     ApellidoMaterno: string;
     Correo: string;

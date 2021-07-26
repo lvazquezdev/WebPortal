@@ -1,20 +1,35 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
-    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button> -->
+<mat-toolbar fxLayout="row" color="primary">
     <span>
         <mat-icon>eco</mat-icon> My App
     </span>
     <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
-    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
-    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
-    <a mat-button *ngIf="usuario.role === 'Administrador'" routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
+    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
+    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
+    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
+
     <div class="menu-spacer"></div>
-    {{usuario.nombre}} {{usuario.nombre}}
-    <a mat-button (click)="logOut()">
-        <mat-icon>
-            logout
-        </mat-icon>
-        Salir
-    </a>
+
+    <ng-container>
+        <button mat-button [matMenuTriggerFor]="dropMenu">
+            {{usuario.nombre}} {{usuario.apellido}}
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #dropMenu="matMenu">
+            <ng-container>
+                <div>
+                    <a mat-menu-item routerLink="usuario/perfil-usuario" *ngIf="usuario.role === 'Cliente'">
+                        <mat-icon class="mr">account_circle</mat-icon>
+                        Perfil
+                    </a>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item (click)="logOut()">
+                        <mat-icon class="mr">logout</mat-icon>
+                        Salir
+                    </button>
+
+                </div>
+            </ng-container>
+        </mat-menu>
+    </ng-container>
 </mat-toolbar>

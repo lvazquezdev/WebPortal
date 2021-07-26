@@ -6,13 +6,6 @@ import { Router } from '@angular/router';
 import { LoginModel } from './../../models/login';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-const headers = new HttpHeaders(
-  {
-    'Content-Type': 'application/json',
-    //'Authorization': `Bearer ${token}`
-  }
-)
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +18,11 @@ export class AuthService {
   ) { }
 
   authenticate(login: LoginModel) {
-    return this.http.post(`${environment.ApiService}/authenticate`, login, { headers: headers });
+    return this.http.post(`${environment.ApiService}/authenticate`, login);
+  }
+
+  register(register: LoginModel) {
+    return this.http.post(`${environment.ApiService}/Usuarios/AltaCliente`, register);
   }
 
   isAuth(): boolean {
@@ -45,8 +42,6 @@ export class AuthService {
     }
     return false;
   }
-
-
 
   logOut() {
     localStorage.removeItem('token');

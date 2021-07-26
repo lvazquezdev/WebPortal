@@ -7,11 +7,13 @@ import { LoginComponent } from './components/login/login.component';
 
 import { MaterialModule } from './../material/material.module';
 import { SharedModule } from './../shared/shared.module';
+import { RegistroComponent } from './components/registro/registro.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     CommonModule,

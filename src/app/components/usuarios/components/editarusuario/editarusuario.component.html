@@ -1,76 +1,106 @@
 <form [formGroup]="form" (ngSubmit)="update($event)">
-    <mat-card>
+    <mat-card class="mat-elevation-z5">
         <mat-card-header>
             <mat-card-title>Editar Usuario</mat-card-title>
+            <!-- <mat-card-subtitle>Today: July 10, 2020</mat-card-subtitle> -->
         </mat-card-header>
+
         <mat-card-content>
+            <div class="flex-row">
+                <div class="temp">
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input matInput placeholder="Primer Nombre" formControlName="PrimerNombre">
+                                <mat-error *ngIf="PrimerNombre.hasError && PrimerNombre.dirty">
+                                    <p *ngIf="PrimerNombre.hasError('required')">* Primer Nombre es requerido</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-xs">
-                    <mat-form-field>
-                        <input matInput placeholder="Nombre" formControlName="Nombre">
-                        <mat-error *ngIf="Nombre.hasError && Nombre.dirty">
-                            <p *ngIf="Nombre.hasError('required')">* Nombre es requerido</p>
-                        </mat-error>
-                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input matInput placeholder="Segundo Nombre" formControlName="SegundoNombre">
+                                <mat-error *ngIf="SegundoNombre.hasError && SegundoNombre.dirty">
+                                    <p *ngIf="SegundoNombre.hasError('required')">* Segundo Nombre es requerido</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input matInput placeholder="Apellido Paterno" formControlName="ApellidoPaterno">
+                                <mat-error *ngIf="APaterno.hasError && APaterno.dirty">
+                                    <p *ngIf="APaterno.hasError('required')">* Apellido Paterno es requerido</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input matInput placeholder="Apellido Materno" formControlName="ApellidoMaterno">
+                                <mat-error *ngIf="AMaterno.hasError && AMaterno.dirty">
+                                    <p *ngIf="AMaterno.hasError('required')">* Apellido Materno es requerido</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <input matInput placeholder="Correo" formControlName="Correo">
+                                <mat-error *ngIf="Correo.hasError && Correo.dirty">
+                                    <p *ngIf="Correo.hasError('required')">* Correo es requerido</p>
+                                    <p *ngIf="Correo.hasError('email')">* Formato de correo incorrecto</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <mat-form-field>
+                                <mat-label>Rol</mat-label>
+                                <mat-select formControlName="RolId">
+                                    <mat-option>Clear</mat-option>
+                                    <mat-option *ngFor="let rol of roles" [value]="rol.RolId">
+                                        {{ rol.Name }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="Rol.hasError && Rol.dirty">
+                                    <p *ngIf="Rol.hasError('required')">* Rol es requerido</p>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="outlook">
+                    <div class="row">
+                        <div class="col-xs">
+                            <label for="">Foto de Perfil</label>
+                            <br>
+                            <div class="circular--portrait">
+                                <img [src]="imgURL" class="circular--square" alt="" />
+                            </div>
+                            <br>
+                            <input type="file" (change)="onChangeFile($event)">
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-xs">
-                    <mat-form-field>
-                        <input matInput placeholder="Apellido Paterno" formControlName="ApellidoPaterno">
-                        <mat-error *ngIf="APaterno.hasError && APaterno.dirty">
-                            <p *ngIf="APaterno.hasError('required')">* Apellido Paterno es requerido</p>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs">
-                    <mat-form-field>
-                        <input matInput placeholder="Apellido Materno" formControlName="ApellidoMaterno">
-                        <mat-error *ngIf="AMaterno.hasError && AMaterno.dirty">
-                            <p *ngIf="AMaterno.hasError('required')">* Apellido Materno es requerido</p>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs">
-                    <mat-form-field>
-                        <input matInput placeholder="Correo" formControlName="Correo">
-                        <mat-error *ngIf="Correo.hasError && Correo.dirty">
-                            <p *ngIf="Correo.hasError('required')">* Correo es requerido</p>
-                            <p *ngIf="Correo.hasError('email')">* Formato de correo incorrecto</p>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs">
-                    <mat-form-field>
-                        <mat-label>Rol</mat-label>
-                        <mat-select formControlName="RolId">
-                            <mat-option>Clear</mat-option>
-                            <mat-option *ngFor="let rol of roles" [value]="rol.RolId">
-                                {{ rol.Name }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="Rol.hasError && Rol.dirty">
-                            <p *ngIf="Rol.hasError('required')">* Rol es requerido</p>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-
         </mat-card-content>
+
         <mat-card-actions>
             <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
-            <a routerLink="/usuarios/lista-usuarios" mat-raised-button color="primary" [disabled]="form.invalid">Cancelar</a>
+            <a routerLink="/usuarios/lista-usuarios" mat-raised-button color="warn">Cancelar</a>
         </mat-card-actions>
     </mat-card>
 </form>

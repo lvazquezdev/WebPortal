@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Usuario } from './../../../../models/usuario';
 import { Router } from '@angular/router';
+import decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listausuarios',
@@ -13,14 +15,26 @@ import { Router } from '@angular/router';
 })
 export class ListausuariosComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['Nombre', 'ApellidoPaterno', 'ApellidoMaterno', 'Correo', 'Rol', 'Actions'];
+  displayedColumns: string[] = ['PrimerNombre', 'SegundoNombre', 'ApellidoPaterno', 'ApellidoMaterno', 'Correo', 'Rol'];
   dataSource: any;
   usuarios: Usuario[] | undefined;
+  usuario: any;
 
   constructor(
     private usuarioService: UsuarioService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+    const token = localStorage.getItem('token') as string;
+    if (token) {
+      const { nombre, apellido, role }: any = decode(token);
+      this.usuario = { nombre, apellido, role };
+
+      if (role === "Admin") {
+        this.displayedColumns.push('Actions');
+      }
+    }
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
@@ -39,6 +53,7 @@ export class ListausuariosComponent implements AfterViewInit {
   }
 
   deleteUser(id: string) {
+
     if (confirm("Esta seguro de eliminar el registro?")) {
       this.usuarioService.eliminaUsuario(id)
         .subscribe(res => {

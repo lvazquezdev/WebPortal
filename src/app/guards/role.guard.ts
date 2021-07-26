@@ -17,17 +17,30 @@ export class RoleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-
+    //debugger
     const expectedRole = route.data.expectedRole;
     const token = localStorage.getItem('token') as string;
     const { role }: any = decode(token);
+    var isValid = true;
 
+    /*
     if (!this.authService.isAuth() || expectedRole !== role) {
       console.log("Rol no autorizado!");
-      return false
+      isValid = false
+    }
+    */
+
+    for (let index = 0; index < expectedRole.length; index++) {
+      const rol = expectedRole[index];
+      if (!this.authService.isAuth() || rol !== role) {
+        isValid = false
+      } else {
+        isValid = true;
+        break;
+      }
     }
 
-    return true;
+    return isValid;
   }
 
 }

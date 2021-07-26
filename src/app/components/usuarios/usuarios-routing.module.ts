@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListausuariosComponent } from './components/listausuarios/listausuarios.component';
 import { NuevousuarioComponent } from './components/nuevousuario/nuevousuario.component';
 import { EditarusuarioComponent } from './components/editarusuario/editarusuario.component';
+// import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 
 const routes: Routes = [
     {
@@ -17,7 +18,11 @@ const routes: Routes = [
     {
         path: 'editar/:id',
         component: EditarusuarioComponent
-    }
+    },
+    // {
+    //     path: 'perfil-usuario',
+    //     component: PerfilUsuarioComponent
+    // }
 ];
 
 @NgModule({

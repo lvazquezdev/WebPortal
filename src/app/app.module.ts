@@ -11,6 +11,10 @@ import { AuthInterceptorService } from './core/services/auth-interceptor.service
 
 import { SharedModule } from './shared/shared.module';
 import { LayoutComponent } from './layout/layout.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { LayoutComponent } from './layout/layout.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    FlexLayoutModule,
+    SharedModule,
+    ToastrModule.forRoot({
+      timeOut: 2000
+    })
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }
