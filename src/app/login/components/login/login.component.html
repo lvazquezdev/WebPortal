@@ -1,3 +1,18 @@
+<mat-toolbar fxLayout="row" color="primary">
+    <span>
+        <mat-icon>eco</mat-icon> My App
+    </span>
+    <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+
+    <div class="menu-spacer"></div>
+
+    <ng-container>
+        <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+        <a mat-button routerLink="/registro" routerLinkActive="active">Registro</a>
+    </ng-container>
+
+</mat-toolbar>
+
 <div class="login-container">
     <div class="login-content">
         <mat-toolbar class="login-toolbar" color="primary">Login</mat-toolbar>

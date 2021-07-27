@@ -19,7 +19,7 @@
 
 .login-container {
     /*margin-top: 50px;*/
-    height: 100%;
+    height: 80%;
     width: 100%;
     align-items: center;
     display: flex;
@@ -53,4 +53,8 @@ form {
 .socialMediaFlex {
     display: flex;
     justify-content: space-around;
+}
+
+.menu-spacer {
+    flex: 1 1 auto;
 }

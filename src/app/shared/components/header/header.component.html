@@ -3,13 +3,19 @@
         <mat-icon>eco</mat-icon> My App
     </span>
     <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
-    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
-    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
-    <a mat-button *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'" routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
-
+    <div *ngIf="usuario.role === 'Admin' || usuario.role === 'Usuario'">
+        <a mat-button routerLink="/usuarios/lista-usuarios" routerLinkActive="active">Usuarios</a>
+        <a mat-button routerLink="/productos/lista-productos" routerLinkActive="active">Productos</a>
+        <a mat-button routerLink="/roles/lista-roles" routerLinkActive="active">Roles</a>
+    </div>
     <div class="menu-spacer"></div>
 
-    <ng-container>
+    <ng-container *ngIf="!isLogin">
+        <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+        <a mat-button routerLink="/registro" routerLinkActive="active">Registro</a>
+    </ng-container>
+
+    <ng-container *ngIf="isLogin">
         <button mat-button [matMenuTriggerFor]="dropMenu">
             {{usuario.nombre}} {{usuario.apellido}}
             <mat-icon>arrow_drop_down</mat-icon>
